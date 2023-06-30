@@ -6,7 +6,18 @@ const styles = StyleSheet.create({
         flex: 1,
         top: 30,
         width: '98%',
-        paddingLeft: 20,
+    },
+    imageArtist: {
+        width: 135,
+        height: 135,
+        borderRadius: 20,
+    },
+    titleMusic: {
+        color: '#006189',
+        fontSize: 20,
+    },
+    nameArtist: {
+        color: '#006189',
     },
     formLyricText: {
         fontSize: 15,

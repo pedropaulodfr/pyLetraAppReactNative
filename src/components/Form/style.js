@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         fontSize: 23,
         fontWeight: 600
     },
-    letraMusica: {
+    letraMusicaContent: {
         position: 'absolute',
         height: '100%',
         width: '100%',
