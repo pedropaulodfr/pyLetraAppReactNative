@@ -8,7 +8,7 @@ export default function LetraMusica(props) {
     return(
         <View style={styles.formLyricTextContainer}>
             <ScrollView >
-                <Text>{lyric != '' && `${lyric.mus[0].name}\n${lyric.art.name}\n\n${lyric.mus[0].url}\n\n\n${lyric.mus[0].text}\n`}</Text>
+                <Text>{lyric != '' && `${lyric.mus[0].name}\n${lyric.art.name}\n\n${lyric.mus[0].url}\n\n\n${lyric.mus[0].text}\n\n\n\n`}</Text>
                 {/* <TextInput
                     style={styles.formLyricText}
                     multiline={true}
