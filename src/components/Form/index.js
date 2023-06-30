@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, SafeAreaView, ScrollView, StatusBar } from "react-native"
+import { View, Text, TextInput, TouchableOpacity, Alert, SafeAreaView, ScrollView, StatusBar, StyleSheet, Pressable  } from "react-native"
 import styles from './style'
 import axios from 'axios';
+import LetraMusica from '../LetraMusica';
 
 
 export default function Form() {
     const[music, setMusic] = useState(null)
     const[artist, setArtist] = useState(null)
     const[lyric, setLyric] = useState('')
+    const[lyricModal, setLyricModal] = useState(false)
     
     const getLyrics = () => {
 
@@ -15,6 +17,11 @@ export default function Form() {
             axios.get(`https://api.vagalume.com.br/search.php?art=${artist}&mus=${music}&apikey={9790636438dcf6fe0cb11ded844d9786}`)
             .then((response) => {
                 setLyric(response.data)
+                setLyricModal(true)
+            })
+            .catch((error) => {
+                setLyricModal(false)
+                console.log("Erro ---->", error);
             })
         } else {
             setLyric('')
@@ -33,33 +40,34 @@ export default function Form() {
 
     return(
         <View style={styles.formContent}>
-            <Text style={styles.formLabel}>Música</Text>
-            <TextInput 
-                style={styles.formInput} 
-                onChangeText={music => setMusic(music)}
-                />
-            <Text style={styles.formLabel}>Artista</Text>
-            <TextInput
-                style={styles.formInput} 
-                onChangeText={artist => setArtist(artist)}
-            />
-            <TouchableOpacity
-                style={styles.formButton}
-                onPress={() => {getLyrics()}}
-            >
-                <Text style={styles.formButtonText}>Pesquisar</Text>
-            </TouchableOpacity>
-
-            <SafeAreaView style={styles.formLyricTextContainer}>
-                <ScrollView style={styles.formLyricTextScroll}>
-                    <TextInput
-                        style={styles.formLyricText}
-                        multiline={true}
-                        editable={false}
-                        defaultValue={lyric != '' && `${lyric.mus[0].name}\n${lyric.art.name}\n${lyric.mus[0].url}\n\n${lyric.mus[0].text}\n`}
+            <View style={{marginLeft: 10, marginRight: 10}}>
+                <Text style={styles.formLabel}>Música</Text>
+                <TextInput 
+                    style={styles.formInput} 
+                    onChangeText={music => setMusic(music)}
                     />
-                </ScrollView>
-            </SafeAreaView>
+                <Text style={styles.formLabel}>Artista</Text>
+                <TextInput
+                    style={styles.formInput} 
+                    onChangeText={artist => setArtist(artist)}
+                />
+                <TouchableOpacity
+                    style={styles.formButton}
+                    onPress={() => {getLyrics()}}
+                >
+                    <Text style={styles.formButtonText}>Pesquisar</Text>
+                </TouchableOpacity>
+            </View>
+            
+
+            {lyricModal ? 
+                <View style={styles.letraMusica}>
+                    <Pressable onPress={() => {setLyricModal(false)}}>
+                        <Text style={styles.closeLyric} >               </Text>
+                    </Pressable>
+                    <LetraMusica letra={lyric}  statusModal={setLyricModal} />
+                </View>
+            : null }
 
         </View>
     )
