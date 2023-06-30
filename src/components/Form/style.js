@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         flex: .8,
         justifyContent: 'flex-start',
         width: 'auto',
-        height: '100%',
+        height: 'auto',
     },
     formLabel: {
         top: 7,
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         color: '#ffffff',
         padding: 10,
+        paddingLeft: 20,
         fontSize: 18,
         marginBottom: 20,
     },

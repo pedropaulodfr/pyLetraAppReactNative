@@ -14,14 +14,17 @@ const styles = StyleSheet.create({
     },
     titleMusic: {
         color: '#006189',
-        fontSize: 20,
+        fontSize: 22,
     },
     nameArtist: {
         color: '#006189',
+        fontSize: 17,
     },
     formLyricText: {
-        fontSize: 15,
+        fontSize: 17,
         color:'#000000',
+        paddingLeft: 20, 
+        paddingTop: 20,
     },
 
 

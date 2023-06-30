@@ -8,7 +8,7 @@ import LetraMusica from '../LetraMusica';
 export default function Form() {
     const[music, setMusic] = useState(null)
     const[artist, setArtist] = useState(null)
-    const[imageArtistUrl, setImageArtistUrl] = useState('')
+    const[imageArtistUrl, setImageArtistUrl] = useState('https://www.protec.com.br/wp-content/uploads/2022/06/imagem-indisponivel-para-produtos-sem-imagem.jpg')
     const[lyric, setLyric] = useState('')
     const[lyricModal, setLyricModal] = useState(false)
 
@@ -16,7 +16,6 @@ export default function Form() {
         let artistId = lyric.art.id;
         axios.get(`https://api.vagalume.com.br/image.php?bandID=${artistId}&limit=1&apikey={9790636438dcf6fe0cb11ded844d9786}`)
         .then(response => {
-            console.log(response.data.images[0].url);
             setImageArtistUrl(response.data.images[0].url);
         }).catch(error => {
             console.log(error);
@@ -32,9 +31,6 @@ export default function Form() {
             .then((response) => {
                 setLyric(response.data)
                 setLyricModal(true)
-
-                console.log(response.data);
-
                 getImageArtist();
             })
             .catch((error) => {
@@ -53,7 +49,6 @@ export default function Form() {
                 {text: 'OK', onPress: () => console.log('OK Pressed')},
             ]);
         }
-
 
     }
 
