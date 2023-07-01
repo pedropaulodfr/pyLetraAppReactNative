@@ -15,7 +15,9 @@ export default function LetraMusica(props) {
                     <Text style={styles.titleMusic}>{lyric != '' && `${lyric.mus[0].name}`}</Text>
                     <Text style={styles.nameArtist}>{lyric != '' && `${lyric.art.name}`}</Text>
                 </View>
+                <View style={{width: '100%', alignItems: 'center'}}>
                     <Text style={styles.formLyricText}>{lyric != '' && `${lyric.mus[0].text}\n\nDisponível em: ${lyric.mus[0].url}\n\n\n`}</Text>
+                </View>
             </ScrollView>
         </View>
     )

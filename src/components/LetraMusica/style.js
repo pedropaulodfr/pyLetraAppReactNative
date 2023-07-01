@@ -18,13 +18,19 @@ const styles = StyleSheet.create({
     },
     nameArtist: {
         color: '#006189',
-        fontSize: 17,
+        fontSize: 15,
     },
     formLyricText: {
+        width: '95%',
         fontSize: 17,
-        color:'#000000',
+        color:'#013a52',
+        margin: 10,
         paddingLeft: 20, 
         paddingTop: 20,
+        borderWidth: 2,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        borderColor: '#006189',
     },
 
 

@@ -3,7 +3,7 @@ import { StyleSheet, StatusBar } from "react-native"
 
 const styles = StyleSheet.create({
     formContent: {
-        flex: .8,
+        flex: 1,
         justifyContent: 'flex-start',
         width: 'auto',
         height: 'auto',
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     },
     formInput: {
         backgroundColor: '#006189',
-        height: 40,
+        height: 50,
         borderWidth: 1,
         borderColor: '#ffffff',
         borderRadius: 30,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         padding: 10,
         paddingLeft: 20,
         fontSize: 18,
-        marginBottom: 20,
+        marginBottom: 10,
     },
     formButton: {
         backgroundColor: '#F2D55A',
@@ -55,9 +55,8 @@ const styles = StyleSheet.create({
         zIndex: 20,
     },
     closeLyric: {
-        top: 5, 
         width: '100%',
-        height: 8,
+        height: 6,
         backgroundColor: '#006189',
         borderRadius: 30,
     }

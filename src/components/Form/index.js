@@ -11,6 +11,7 @@ export default function Form() {
     const[imageArtistUrl, setImageArtistUrl] = useState('https://www.protec.com.br/wp-content/uploads/2022/06/imagem-indisponivel-para-produtos-sem-imagem.jpg')
     const[lyric, setLyric] = useState('')
     const[lyricModal, setLyricModal] = useState(false)
+    const[errorSearchLyric, setErrorSearchLyric] = useState(false)
 
     const getImageArtist = () => {
         let artistId = lyric.art.id;
@@ -18,14 +19,14 @@ export default function Form() {
         .then(response => {
             setImageArtistUrl(response.data.images[0].url);
         }).catch(error => {
-            console.log(error);
-            setImageArtistUrl('https://www.protec.com.br/wp-content/uploads/2022/06/imagem-indisponivel-para-produtos-sem-imagem.jpg')
+            console.log('Erro ao bucar a imagem: ', error);
+            setImageArtistUrl('https://www.protec.com.br/wp-content/uploads/2022/06/imagem-indisponivel-para-produtos-sem-imagem.jpg');
         })
-
+        
     }
     
     const getLyrics = () => {
-
+        
         if (music != null || artist !=null) {
             axios.get(`https://api.vagalume.com.br/search.php?art=${artist}&mus=${music}&apikey={9790636438dcf6fe0cb11ded844d9786}`)
             .then((response) => {
@@ -35,12 +36,13 @@ export default function Form() {
             })
             .catch((error) => {
                 setLyricModal(false)
-                console.log("Erro ---->", error);
+                setErrorSearchLyric(true);
+                console.log("Erro ao buscar a letra---->", error);
             })
 
         } else {
             setLyric('')
-            Alert.alert('Ops!', 'Preencha todos os campos', [
+            Alert.alert('Ops...', 'Preencha todos os campos!', [
                 {
                   text: 'Cancelar',
                   onPress: () => console.log('Cancel Pressed'),
@@ -76,10 +78,19 @@ export default function Form() {
 
             {lyricModal ? 
                 <View style={styles.letraMusicaContent}>
-                    <Pressable onPress={() => {setLyricModal(false)}}>
+                    <Pressable style={{flex: .05, justifyContent: 'center'}} onPress={() => {setLyricModal(false)}}>
                         <Text style={styles.closeLyric} >               </Text>
                     </Pressable>
-                    <LetraMusica letra={lyric} imagemArtista={imageArtistUrl} statusModal={setLyricModal} />
+                    {console.log(lyric)}
+                    {console.log(lyric.type == 'notfound')}
+                    {lyric.type != 'notfound' && <LetraMusica letra={lyric} imagemArtista={imageArtistUrl} statusModal={setLyricModal} />}
+                    {lyric.type == 'notfound' && setLyricModal(false)}
+                    {lyric.type == 'notfound' && 
+                        Alert.alert('Ops...', 'Letra não encontrada!', [
+                            {text: 'Cancelar', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                            {text: 'OK', onPress: () => console.log('OK Pressed')},
+                        ])
+                    }
                 </View>
             : null }
 
