@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, SafeAreaView, ScrollView, StatusBar, StyleSheet, Pressable  } from "react-native"
+import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Pressable  } from "react-native"
 import styles from './style'
 import axios from 'axios';
 import LetraMusica from '../LetraMusica';
@@ -11,7 +11,6 @@ export default function Form() {
     const[imageArtistUrl, setImageArtistUrl] = useState('https://www.protec.com.br/wp-content/uploads/2022/06/imagem-indisponivel-para-produtos-sem-imagem.jpg')
     const[lyric, setLyric] = useState('')
     const[lyricModal, setLyricModal] = useState(false)
-    const[errorSearchLyric, setErrorSearchLyric] = useState(false)
 
     const getImageArtist = () => {
         let artistId = lyric.art.id;
@@ -36,7 +35,6 @@ export default function Form() {
             })
             .catch((error) => {
                 setLyricModal(false)
-                setErrorSearchLyric(true);
                 console.log("Erro ao buscar a letra---->", error);
             })
 
@@ -75,14 +73,14 @@ export default function Form() {
                 </TouchableOpacity>
             </View>
             
-
+            {/* Abrir modal */}
             {lyricModal ? 
                 <View style={styles.letraMusicaContent}>
                     <Pressable style={{flex: .05, justifyContent: 'center'}} onPress={() => {setLyricModal(false)}}>
                         <Text style={styles.closeLyric} >               </Text>
                     </Pressable>
-                    {console.log(lyric)}
-                    {console.log(lyric.type == 'notfound')}
+
+                    {/* Verifica se a letra foi encontrada */}
                     {lyric.type != 'notfound' && <LetraMusica letra={lyric} imagemArtista={imageArtistUrl} statusModal={setLyricModal} />}
                     {lyric.type == 'notfound' && setLyricModal(false)}
                     {lyric.type == 'notfound' && 
