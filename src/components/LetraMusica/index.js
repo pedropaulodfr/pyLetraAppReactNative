@@ -7,6 +7,7 @@ import IconShare from 'react-native-vector-icons/AntDesign';
 
 export default function LetraMusica(props) {
     let lyric = props.letra;
+
     const[traducao, setTraducao] = useState(false)
     const[traducaoColor, setTraducaoColor] = useState("#A9A9A9")
 
@@ -20,13 +21,19 @@ export default function LetraMusica(props) {
     
     // Tradução
     const onTranslate = () => {
-        if (traducao) {
-            setTraducao(false)
-            setTraducaoColor("#A9A9A9")
-        } else {
-            setTraducao(true)
-            setTraducaoColor("#1992EA")
+
+        if (lyric.mus[0].translate[0].text) {
+
+            if (traducao) {
+                setTraducao(false)
+                setTraducaoColor("#A9A9A9")
+            } else {
+                setTraducao(true)
+                setTraducaoColor("#1992EA")
+            }
+
         }
+
     }
 
     return(
@@ -44,23 +51,25 @@ export default function LetraMusica(props) {
 
                 {/* Botão de tradução */}
                 <View style={{width: '100%', alignItems: 'center'}}>
-                    <IconTranslate
-                        name="translate" 
-                        size={25} 
-                        color={traducaoColor}
-                        style={{top: 20, right: 70, position: 'absolute', zIndex: 30}} 
-                        onPress={onTranslate}
-                    /> 
+                    <View style={styles.lyricIcons}>
+                        <IconTranslate
+                            name="translate" 
+                            size={25} 
+                            color={traducaoColor}
+                            style={{marginRight: 10}} 
+                            onPress={onTranslate}
+                            /> 
 
-                    <IconShare
-                        name="sharealt" 
-                        size={25} 
-                        color="#A9A9A9" 
-                        style={{top: 20, right: 30, position: 'absolute', zIndex: 30}} 
-                        onPress={onShare}
-                    /> 
+                        <IconShare
+                            name="sharealt" 
+                            size={25} 
+                            color="#A9A9A9" 
+                            style={{marginRight: 10}} 
+                            onPress={onShare}
+                        /> 
+                    </View>
                     
-                    <Text style={styles.formLyricText}>
+                    <Text style={styles.lyricText}>
                         {
                             (lyric != null && !traducao) 
                             ? `${lyric.mus[0].text}\n\nDisponível em: ${lyric.mus[0].url}\n\n\n` 

@@ -32,7 +32,6 @@ export default function Form() {
                 setLyric(response.data);
                 setLyricModal(true);
                 getImageArtist();
-
             })
             .catch((error) => {
                 setLyricModal(false);

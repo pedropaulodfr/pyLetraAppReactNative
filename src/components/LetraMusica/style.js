@@ -20,19 +20,26 @@ const styles = StyleSheet.create({
         color: '#006189',
         fontSize: 15,
     },
-    formLyricText: {
+    lyricText: {
         width: '95%',
         fontSize: 17,
         color:'#013a52',
         margin: 10,
         paddingLeft: 20, 
-        paddingTop: 30,
+        paddingTop: 45,
         borderWidth: 2,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         borderColor: '#006189',
     },
-
+    lyricIcons: {
+        flex: 1, 
+        flexDirection: 'row',
+        position: 'absolute',
+        top: 25,
+        right: 20, 
+        zIndex: 30, 
+    }
 
 });
 
