@@ -62,7 +62,7 @@ export default function LetraMusica(props) {
                     
                     <Text style={styles.formLyricText}>
                         {
-                            (lyric != '' && !traducao) 
+                            (lyric != null && !traducao) 
                             ? `${lyric.mus[0].text}\n\nDisponível em: ${lyric.mus[0].url}\n\n\n` 
                             : `${lyric.mus[0].translate[0].text}\n\nDisponível em: ${lyric.mus[0].url}\n\n\n`
                         }</Text>
