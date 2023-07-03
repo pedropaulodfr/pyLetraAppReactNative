@@ -12,8 +12,7 @@ export default function Form() {
     const[lyric, setLyric] = useState('')
     const[lyricModal, setLyricModal] = useState(false)
 
-    const getImageArtist = () => {
-        let artistId = lyric.art.id;
+    const getImageArtist = (artistId) => {
         axios.get(`https://api.vagalume.com.br/image.php?bandID=${artistId}&limit=1&apikey={9790636438dcf6fe0cb11ded844d9786}`)
         .then(response => {
             setImageArtistUrl(response.data.images[0].url);
@@ -31,7 +30,7 @@ export default function Form() {
             .then((response) => {
                 setLyric(response.data);
                 setLyricModal(true);
-                getImageArtist();
+                getImageArtist(response.data.art.id);
             })
             .catch((error) => {
                 setLyricModal(false);
