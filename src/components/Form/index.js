@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Pressable  } from "react-native"
+import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Pressable, FlatList  } from "react-native"
 import styles from './style'
 import axios from 'axios';
 import LetraMusica from '../LetraMusica';
@@ -11,6 +11,7 @@ export default function Form() {
     const[imageArtistUrl, setImageArtistUrl] = useState('https://www.protec.com.br/wp-content/uploads/2022/06/imagem-indisponivel-para-produtos-sem-imagem.jpg')
     const[lyric, setLyric] = useState('')
     const[lyricModal, setLyricModal] = useState(false)
+    const[listaVariasMusicas, setListaVariasMusicas] = useState(null)
 
     const getImageArtist = (artistId) => {
         axios.get(`https://api.vagalume.com.br/image.php?bandID=${artistId}&limit=1&apikey={9790636438dcf6fe0cb11ded844d9786}`)
@@ -24,8 +25,9 @@ export default function Form() {
     }
     
     const getLyrics = () => {
+        console.log('LOGS---->', music, artist);
         
-        if (music != null || artist !=null) {
+        if (music != null && artist !=null && artist != '') { // (music != null || artist !=null
             axios.get(`https://api.vagalume.com.br/search.php?art=${artist}&mus=${music}&apikey={9790636438dcf6fe0cb11ded844d9786}`)
             .then((response) => {
                 setLyric(response.data);
@@ -37,6 +39,16 @@ export default function Form() {
                 console.log("Erro ao buscar a letra:", error);
             })
 
+        } else if (music != null) {
+            axios.get(`https://api.vagalume.com.br/search.excerpt?apikey=9790636438dcf6fe0cb11ded844d9786&q=${music}&limit=5`)
+            .then((response) => {
+                console.log(response.data.response.docs[0]);
+                setListaVariasMusicas(response.data.response.docs)
+            })
+            .catch((error) => {
+                console.log("Erro ao buscar a letra:", error);
+            })
+            
         } else {
             setLyric('');
             Alert.alert('Ops...', 'Preencha todos os campos!', [
@@ -50,6 +62,21 @@ export default function Form() {
         }
 
     }
+
+
+    /* Renderizar as músicas de vários artistas */
+    const Item = ({title, artist}) => (
+        <View>
+            <Pressable onPress={() => {
+                setMusic(title);
+                setArtist(artist);
+                getLyrics();
+                setListaVariasMusicas(null); // Para fechar o modal
+            }}>
+                <Text>{`${artist} - ${title}`}</Text>
+            </Pressable>
+        </View>
+      );
 
     return(
         <View style={styles.formContent}>
@@ -73,7 +100,7 @@ export default function Form() {
             </View>
             
             {/* Abrir modal */}
-            {lyricModal ? 
+            {(lyricModal && listaVariasMusicas) == null ?
                 <View style={styles.letraMusicaContent}>
                     {/* Botão de fechar o modal */}
                     <Pressable style={{flex: .05, justifyContent: 'center'}} onPress={() => {setLyricModal(false)}}>
@@ -97,6 +124,23 @@ export default function Form() {
                     }
                 </View>
             : null }
+
+            {/* Lista com as músicas de vários artistas com o mesm título pesquisado */}
+            {listaVariasMusicas != null &&
+                <View style={styles.letraMusicaContent}>
+                {/* Botão de fechar o modal */}
+                <Pressable style={{flex: .05, justifyContent: 'center'}} onPress={() => {setListaVariasMusicas(null); setArtist(null); setMusic(null)}}>
+                    <Text style={styles.closeLyric} >               </Text>
+                </Pressable>
+
+                <FlatList
+                    data={listaVariasMusicas}
+                    renderItem={({item}) => <Item title={item.title} artist={item.band}/>}
+                    keyExtractor={item => item.id}
+                />
+
+            </View>
+            }   
 
         </View>
     )
