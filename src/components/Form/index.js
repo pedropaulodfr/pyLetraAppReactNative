@@ -28,8 +28,7 @@ export default function Form() {
     
     const getLyrics = () => {
         
-        if (music != null && artist !=null && artist != '') { // (music != null || artist !=null
-            console.log('Pesquisando letra da música ' + music + ' com o artista ' + artist);
+        if (music != null && artist !=null && artist != '') { 
             axios.get(`https://api.vagalume.com.br/search.php?art=${artist}&mus=${music}&apikey={9790636438dcf6fe0cb11ded844d9786}`)
             .then((response) => {
                 setLyric(response.data);
@@ -42,11 +41,8 @@ export default function Form() {
             })
 
         } else if (music != null) {
-            console.log('Pesquisando artistas da musica ' + music);
-            axios.get(`https://api.vagalume.com.br/search.excerpt?apikey=9790636438dcf6fe0cb11ded844d9786&q=${music}&limit=5`)
+            axios.get(`https://api.vagalume.com.br/search.excerpt?apikey=9790636438dcf6fe0cb11ded844d9786&q=${music}&limit=20`)
             .then((response) => {
-                console.log('Mostrando artistas abaixo:');
-                console.log(response.data.response.docs[0]);
                 setListaVariasMusicas(response.data.response.docs)
             })
             .catch((error) => {
@@ -73,11 +69,19 @@ export default function Form() {
         <View>
             <Pressable 
                 onPress={() => {
-                    setMusic(title);
-                    setArtist(band);
-                    console.log('A música escolhida na lista foi: ' + title, ' | Artista escolhido: ' + band);
-                    console.log('A música que vai ser pesquisada é: ' + music, ' | Artista a ser pesquisado: ' + artist);
-                    getLyrics();
+
+                    /* Buscas a letra da música selecionada na lista */
+                    axios.get(`https://api.vagalume.com.br/search.php?art=${band}&mus=${title}&apikey={9790636438dcf6fe0cb11ded844d9786}`)
+                    .then((response) => {
+                        setLyric(response.data);
+                        setLyricModal(true);
+                        getImageArtist(response.data.art.id);
+                    })
+                    .catch((error) => {
+                        setLyricModal(false);
+                        console.log("Erro ao buscar a letra:", error);
+                    })
+
                     setListaVariasMusicas(null); // Para fechar o modal
                 }}
                 style={{flex: 1, flexDirection: 'row'}}

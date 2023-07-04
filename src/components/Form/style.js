@@ -80,8 +80,7 @@ const styles = StyleSheet.create({
     listaVariasMusicas: {
         flex: 1,
         width: '85%',
-        minHeight: '70%',
-        maxHeight: '80%',
+        minHeight: '100%',
         borderWidth: 1.5,
         borderRadius: 20,
         borderColor: '#006189',
@@ -92,7 +91,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         margin: 10,
         color: '#006189',
-        paddingVertical: 10
+        paddingVertical: 10,
     }
 
 });
