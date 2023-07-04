@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Image, StyleSheet, ScrollView, Button, Share, Pressable } from "react-native"
+import { View, Text, TextInput, Image, StyleSheet, ScrollView, Button, Share, Alert } from "react-native"
 import styles from './style'
 import IconTranslate from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconShare from 'react-native-vector-icons/AntDesign';
@@ -22,7 +22,8 @@ export default function LetraMusica(props) {
     // Tradução
     const onTranslate = () => {
 
-        if (lyric.mus[0].translate[0].text) {
+        try { // Tenta pegar a tradução
+            lyric.mus[0].translate[0].text
 
             if (temTraducao) {
                 setTemTraducao(false)
@@ -31,13 +32,26 @@ export default function LetraMusica(props) {
                 setTemTraducao(true)
                 setTraducaoColor("#1992EA")
             }
-
+        } catch (error) { // Caso a tradução não exista, irá retornar um erro
+            setTemTraducao(false)
+            Alert.alert('Ops...', 'Não tem tradução para essa música!', [
+                {
+                  text: 'Cancelar',
+                  onPress: () => console.log('Cancel Pressed'),
+                  style: 'cancel',
+                },
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ]);
         }
+ 
 
+        
+            
+        
     }
 
     return(
-        <View style={styleslyricTextContainer}>
+        <View style={styles.lyricTextContainer}>
             <ScrollView >
                 {/* Imagem do artista */}
                 <View style={{width: '100%', alignItems: 'center'}}>
@@ -69,6 +83,15 @@ export default function LetraMusica(props) {
                         /> 
                     </View>
                     
+                    {/* <Text style={styles.lyricText}>
+                        {
+                            (lyric != null && !temTraducao) 
+                            ? `${lyric.mus[0].text}\n\nDisponível em: ${lyric.mus[0].url}\n\n\n` 
+                            : `${lyric.mus[0].translate[0].text}\n\nDisponível em: ${lyric.mus[0].url}\n\n\n`
+                        }
+                    </Text> */}
+
+
                     <Text style={styles.lyricText}>
                         {
                             (lyric != null && !temTraducao) 
@@ -76,6 +99,7 @@ export default function LetraMusica(props) {
                             : `${lyric.mus[0].translate[0].text}\n\nDisponível em: ${lyric.mus[0].url}\n\n\n`
                         }
                     </Text>
+
                 </View>
             </ScrollView>
         </View>
