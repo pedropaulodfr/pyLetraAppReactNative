@@ -27,9 +27,9 @@ export default function Form() {
     }
     
     const getLyrics = () => {
-        console.log('LOGS---->', music, artist);
         
         if (music != null && artist !=null && artist != '') { // (music != null || artist !=null
+            console.log('Pesquisando letra da música ' + music + ' com o artista ' + artist);
             axios.get(`https://api.vagalume.com.br/search.php?art=${artist}&mus=${music}&apikey={9790636438dcf6fe0cb11ded844d9786}`)
             .then((response) => {
                 setLyric(response.data);
@@ -42,8 +42,10 @@ export default function Form() {
             })
 
         } else if (music != null) {
+            console.log('Pesquisando artistas da musica ' + music);
             axios.get(`https://api.vagalume.com.br/search.excerpt?apikey=9790636438dcf6fe0cb11ded844d9786&q=${music}&limit=5`)
             .then((response) => {
+                console.log('Mostrando artistas abaixo:');
                 console.log(response.data.response.docs[0]);
                 setListaVariasMusicas(response.data.response.docs)
             })
@@ -67,12 +69,14 @@ export default function Form() {
 
 
     /* Renderizar as músicas de vários artistas */
-    const Item = ({title, artist}) => (
+    const Item = ({title, band}) => (
         <View>
             <Pressable 
                 onPress={() => {
                     setMusic(title);
-                    setArtist(artist);
+                    setArtist(band);
+                    console.log('A música escolhida na lista foi: ' + title, ' | Artista escolhido: ' + band);
+                    console.log('A música que vai ser pesquisada é: ' + music, ' | Artista a ser pesquisado: ' + artist);
                     getLyrics();
                     setListaVariasMusicas(null); // Para fechar o modal
                 }}
@@ -83,7 +87,7 @@ export default function Form() {
                     size={25}
                     style={{top: 17, marginRight: 5, color: '#006189'}}
                 /> 
-                <Text style={styles.listaVariasMusicasItem}>{`${artist} - ${title}`}</Text>
+                <Text style={styles.listaVariasMusicasItem}>{`${band} - ${title}`}</Text>
             </Pressable>
         </View>
       );
@@ -152,12 +156,7 @@ export default function Form() {
                     {/* Botão de fechar o modal */}
                     <Pressable 
                         style={{flex: .05, justifyContent: 'center'}} 
-                        onPress={() => {
-                            setListaVariasMusicas(null); 
-                            setArtist(null); 
-                            setMusic(null);
-                            console.log('Fechado');
-                        }}
+                        onPress={() => {setListaVariasMusicas(null)}} // Para fechar o modal
                     >
                         <Text style={styles.closeLyric} >               </Text>
                     </Pressable>
@@ -169,7 +168,7 @@ export default function Form() {
                         <FlatList 
                             style={styles.listaVariasMusicas}
                             data={listaVariasMusicas}
-                            renderItem={({item}) => <Item title={item.title} artist={item.band}/>}
+                            renderItem={({item}) => <Item title={item.title} band={item.band}/>}
                             keyExtractor={item => item.id}
                         />
                     </View>

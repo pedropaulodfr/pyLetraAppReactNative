@@ -34,7 +34,7 @@ export default function LetraMusica(props) {
             }
         } catch (error) { // Caso a tradução não exista, irá retornar um erro
             setTemTraducao(false)
-            Alert.alert('Ops...', 'Não tem tradução para essa música!', [
+            Alert.alert('Ops...', 'Não há tradução para essa música!', [
                 {
                   text: 'Cancelar',
                   onPress: () => console.log('Cancel Pressed'),
