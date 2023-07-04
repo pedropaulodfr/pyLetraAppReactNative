@@ -8,7 +8,7 @@ import IconShare from 'react-native-vector-icons/AntDesign';
 export default function LetraMusica(props) {
     let lyric = props.letra;
 
-    const[traducao, setTraducao] = useState(false)
+    const[temTraducao, setTemTraducao] = useState(false)
     const[traducaoColor, setTraducaoColor] = useState("#A9A9A9")
 
     // Compartilhamento
@@ -24,11 +24,11 @@ export default function LetraMusica(props) {
 
         if (lyric.mus[0].translate[0].text) {
 
-            if (traducao) {
-                setTraducao(false)
+            if (temTraducao) {
+                setTemTraducao(false)
                 setTraducaoColor("#A9A9A9")
             } else {
-                setTraducao(true)
+                setTemTraducao(true)
                 setTraducaoColor("#1992EA")
             }
 
@@ -37,7 +37,7 @@ export default function LetraMusica(props) {
     }
 
     return(
-        <View style={styles.formLyricTextContainer}>
+        <View style={styleslyricTextContainer}>
             <ScrollView >
                 {/* Imagem do artista */}
                 <View style={{width: '100%', alignItems: 'center'}}>
@@ -71,7 +71,7 @@ export default function LetraMusica(props) {
                     
                     <Text style={styles.lyricText}>
                         {
-                            (lyric != null && !traducao) 
+                            (lyric != null && !temTraducao) 
                             ? `${lyric.mus[0].text}\n\nDisponível em: ${lyric.mus[0].url}\n\n\n` 
                             : `${lyric.mus[0].translate[0].text}\n\nDisponível em: ${lyric.mus[0].url}\n\n\n`
                         }

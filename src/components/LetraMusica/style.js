@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, StatusBar } from "react-native"
 
 const styles = StyleSheet.create({
-    formLyricTextContainer: {
+    lyricTextContainer: {
         flex: 1,
         top: 30,
         width: '98%',
