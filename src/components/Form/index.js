@@ -53,7 +53,7 @@ export default function Form() {
             
         } else {
             setLyric('');
-            Alert.alert('Ops...', 'Preencha todos os campos!', [
+            Alert.alert('Ops...', 'Preencha os campos!', [
                 {
                   text: 'Cancelar',
                   onPress: () => console.log('Cancel Pressed'),
@@ -95,11 +95,13 @@ export default function Form() {
                 <TextInput 
                     style={styles.formInput} 
                     onChangeText={music => setMusic(music)}
+                    value={music}
                 />
                 <Text style={styles.formLabel}>Artista</Text>
                 <TextInput
                     style={styles.formInput} 
                     onChangeText={artist => setArtist(artist)}
+                    value={artist}
                 />
                 <TouchableOpacity
                     style={styles.formButton}
@@ -110,10 +112,18 @@ export default function Form() {
             </View>
             
             {/* Abrir modal */}
-            {(lyricModal && listaVariasMusicas) == null ?
+            {(lyricModal && listaVariasMusicas == null) ?
                 <View style={styles.letraMusicaContent}>
+
                     {/* Botão de fechar o modal */}
-                    <Pressable style={{flex: .05, justifyContent: 'center'}} onPress={() => {setLyricModal(false)}}>
+                    <Pressable 
+                        style={{flex: .05, justifyContent: 'center'}} 
+                        onPress={() => {
+                            setLyricModal(false); 
+                            setArtist(null), 
+                            setMusic(null)
+                            }}
+                        >
                         <Text style={styles.closeLyric} >               </Text>
                     </Pressable>
 
@@ -135,11 +145,20 @@ export default function Form() {
                 </View>
             : null }
 
-            {/* Lista com as músicas de vários artistas com o mesm título pesquisado */}
+            {/* Lista com as músicas de vários artistas com o mesmo título pesquisado */}
             {listaVariasMusicas != null &&
                 <View style={styles.letraMusicaContent}>
+
                     {/* Botão de fechar o modal */}
-                    <Pressable style={{flex: .05, justifyContent: 'center'}} onPress={() => {setListaVariasMusicas(null); setArtist(null); setMusic(null)}}>
+                    <Pressable 
+                        style={{flex: .05, justifyContent: 'center'}} 
+                        onPress={() => {
+                            setListaVariasMusicas(null); 
+                            setArtist(null); 
+                            setMusic(null);
+                            console.log('Fechado');
+                        }}
+                    >
                         <Text style={styles.closeLyric} >               </Text>
                     </Pressable>
 
