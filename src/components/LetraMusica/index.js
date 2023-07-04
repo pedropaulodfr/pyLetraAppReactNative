@@ -72,7 +72,7 @@ export default function LetraMusica(props) {
                             color={traducaoColor}
                             style={{marginRight: 10}} 
                             onPress={onTranslate}
-                            /> 
+                        /> 
 
                         <IconShare
                             name="sharealt" 

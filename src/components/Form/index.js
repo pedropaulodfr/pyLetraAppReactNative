@@ -3,6 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Pressable, 
 import styles from './style'
 import axios from 'axios';
 import LetraMusica from '../LetraMusica';
+import IconRead from 'react-native-vector-icons/Ionicons';
+
 
 
 export default function Form() {
@@ -67,13 +69,21 @@ export default function Form() {
     /* Renderizar as músicas de vários artistas */
     const Item = ({title, artist}) => (
         <View>
-            <Pressable onPress={() => {
-                setMusic(title);
-                setArtist(artist);
-                getLyrics();
-                setListaVariasMusicas(null); // Para fechar o modal
-            }}>
-                <Text>{`${artist} - ${title}`}</Text>
+            <Pressable 
+                onPress={() => {
+                    setMusic(title);
+                    setArtist(artist);
+                    getLyrics();
+                    setListaVariasMusicas(null); // Para fechar o modal
+                }}
+                style={{flex: 1, flexDirection: 'row'}}
+            >
+                <IconRead
+                    name="reader-outline" 
+                    size={25}
+                    style={{top: 17, marginRight: 5, color: '#006189'}}
+                /> 
+                <Text style={styles.listaVariasMusicasItem}>{`${artist} - ${title}`}</Text>
             </Pressable>
         </View>
       );
@@ -85,7 +95,7 @@ export default function Form() {
                 <TextInput 
                     style={styles.formInput} 
                     onChangeText={music => setMusic(music)}
-                    />
+                />
                 <Text style={styles.formLabel}>Artista</Text>
                 <TextInput
                     style={styles.formInput} 
@@ -128,18 +138,24 @@ export default function Form() {
             {/* Lista com as músicas de vários artistas com o mesm título pesquisado */}
             {listaVariasMusicas != null &&
                 <View style={styles.letraMusicaContent}>
-                {/* Botão de fechar o modal */}
-                <Pressable style={{flex: .05, justifyContent: 'center'}} onPress={() => {setListaVariasMusicas(null); setArtist(null); setMusic(null)}}>
-                    <Text style={styles.closeLyric} >               </Text>
-                </Pressable>
+                    {/* Botão de fechar o modal */}
+                    <Pressable style={{flex: .05, justifyContent: 'center'}} onPress={() => {setListaVariasMusicas(null); setArtist(null); setMusic(null)}}>
+                        <Text style={styles.closeLyric} >               </Text>
+                    </Pressable>
 
-                <FlatList
-                    data={listaVariasMusicas}
-                    renderItem={({item}) => <Item title={item.title} artist={item.band}/>}
-                    keyExtractor={item => item.id}
-                />
+                    <View style={styles.listaVariasMusicasContent}>
+                        <View style={{top: 10, left: 30, width: '100%', zIndex: 30}}>
+                            <Text style={styles.listaVariasMusicasLabel}>Letras Encontradas</Text>
+                        </View>
+                        <FlatList 
+                            style={styles.listaVariasMusicas}
+                            data={listaVariasMusicas}
+                            renderItem={({item}) => <Item title={item.title} artist={item.band}/>}
+                            keyExtractor={item => item.id}
+                        />
+                    </View>
 
-            </View>
+                </View>
             }   
 
         </View>

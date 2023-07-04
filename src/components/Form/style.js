@@ -59,6 +59,40 @@ const styles = StyleSheet.create({
         height: 6,
         backgroundColor: '#006189',
         borderRadius: 30,
+    },
+
+    listaVariasMusicasContent: {
+        flex: 1,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center'
+        
+    },
+    listaVariasMusicasLabel:{
+        width: '42%',
+        marginLeft: 30,
+        paddingLeft: 10,
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#006189',
+        backgroundColor: '#ffffff',
+    },
+    listaVariasMusicas: {
+        flex: 1,
+        width: '85%',
+        minHeight: '70%',
+        maxHeight: '80%',
+        borderWidth: 1.5,
+        borderRadius: 20,
+        borderColor: '#006189',
+        paddingTop: 30,
+        paddingLeft: 20,
+    },
+    listaVariasMusicasItem: {
+        fontSize: 16,
+        margin: 10,
+        color: '#006189',
+        paddingVertical: 10
     }
 
 });
