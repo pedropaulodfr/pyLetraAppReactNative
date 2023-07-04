@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Pressable, FlatList  } from "react-native"
+import { View, Text, TextInput, TouchableOpacity, Alert, Keyboard, Pressable, FlatList } from "react-native"
 import styles from './style'
 import axios from 'axios';
 import LetraMusica from '../LetraMusica';
@@ -113,7 +113,7 @@ export default function Form() {
                 />
                 <TouchableOpacity
                     style={styles.formButton}
-                    onPress={() => {getLyrics()}}
+                    onPress={() => {getLyrics(); Keyboard.dismiss /* FEchar teclado */}}
                 >
                     <Text style={styles.formButtonText}>Pesquisar</Text>
                 </TouchableOpacity>

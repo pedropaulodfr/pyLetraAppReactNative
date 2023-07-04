@@ -64,9 +64,9 @@ const styles = StyleSheet.create({
     listaVariasMusicasContent: {
         flex: 1,
         width: '100%',
+        height: '100%',
         alignItems: 'center',
-        justifyContent: 'center'
-        
+        justifyContent: 'center',
     },
     listaVariasMusicasLabel:{
         width: '42%',
@@ -78,9 +78,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
     },
     listaVariasMusicas: {
-        flex: 1,
         width: '85%',
-        minHeight: '100%',
         borderWidth: 1.5,
         borderRadius: 20,
         borderColor: '#006189',
@@ -92,6 +90,7 @@ const styles = StyleSheet.create({
         margin: 10,
         color: '#006189',
         paddingVertical: 10,
+        width: '85%',
     }
 
 });
