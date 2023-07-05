@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
     logoContent: {
-        flex: .5,
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'flex-end',
     },

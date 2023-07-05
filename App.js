@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import Logo from './src/components/Logo';
 import Form from './src/components/Form';
+import Ranking from './src/components/Ranking';
 
 
 export default function App() {
@@ -8,6 +9,7 @@ export default function App() {
     <View style={styles.container}>
       <Logo />
       <Form />
+      <Ranking />
     </View>
   );
 }
