@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         height: '100%',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     rankingHeader: {
         marginLeft: 80,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
     },
     topMensal: {
-        top: 20,
+        top: 10,
         width: '90%',
         borderRadius: 25,
         backgroundColor: '#ffffff',
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     topMusicas: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 10,
+        marginTop: 25,
         marginLeft: 20,
     },
     posicaoRanking: {
@@ -53,10 +53,10 @@ const styles = StyleSheet.create({
     },
     posicaoRankingText: {
         position: 'absolute',
-        top: -2,
-        left: -6,
+        top: 0,
+        left: -5,
         color: '#ffffff',
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: 'bold',
         zIndex: 60,
     },
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         borderColor: '#1AA2DB',
         borderRadius: 50,
     },
-    infoMusic: {
+    infoMusicArtist: {
         left: 20,
         width: '90%'
     },

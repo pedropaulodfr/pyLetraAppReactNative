@@ -97,7 +97,7 @@ export default function Form() {
       );
 
     return(
-        <View style={styles.formContent}>
+        <View style={styles.formContent} >
             <View style={{marginLeft: 10, marginRight: 10}}>
                 <Text style={styles.formLabel}>Música</Text>
                 <TextInput 
