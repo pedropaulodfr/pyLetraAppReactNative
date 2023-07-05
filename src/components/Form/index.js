@@ -7,7 +7,7 @@ import IconRead from 'react-native-vector-icons/Ionicons';
 
 
 
-export default function Form() {
+export default function Form(props) {
     const[music, setMusic] = useState(null)
     const[artist, setArtist] = useState(null)
     const[imageArtistUrl, setImageArtistUrl] = useState('https://www.protec.com.br/wp-content/uploads/2022/06/imagem-indisponivel-para-produtos-sem-imagem.jpg')
@@ -113,7 +113,7 @@ export default function Form() {
                 />
                 <TouchableOpacity
                     style={styles.formButton}
-                    onPress={() => {getLyrics(); Keyboard.dismiss /* FEchar teclado */}}
+                    onPress={() => {getLyrics(); props.statusPesquisa(true); Keyboard.dismiss /* FEchar teclado */}}
                 >
                     <Text style={styles.formButtonText}>Pesquisar</Text>
                 </TouchableOpacity>
@@ -128,9 +128,10 @@ export default function Form() {
                         style={{flex: .05, justifyContent: 'center'}} 
                         onPress={() => {
                             setLyricModal(false); 
-                            setArtist(null), 
-                            setMusic(null)
-                            }}
+                            setArtist(null);
+                            setMusic(null);
+                            props.statusPesquisa(false);
+                        }}
                         >
                         <Text style={styles.closeLyric} >               </Text>
                     </Pressable>

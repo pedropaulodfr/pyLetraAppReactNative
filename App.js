@@ -1,16 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import Logo from './src/components/Logo';
 import Form from './src/components/Form';
 import Ranking from './src/components/Ranking';
+import React, { useState } from 'react';
 
 
 export default function App() {
+
+  const[statusPesquisa, setStatusPesquisa] = useState(false)
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Logo />
-      <Form />
-      <Ranking />
-    </View>
+      <Form statusPesquisa={setStatusPesquisa} />
+      {statusPesquisa == false && <Ranking />}
+    </ScrollView>
   );
 }
 

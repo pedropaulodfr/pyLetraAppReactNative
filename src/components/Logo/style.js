@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native"
 const styles = StyleSheet.create({
     logoContent: {
         flex: 1,
+        marginTop: 50,
         alignItems: 'center',
         justifyContent: 'flex-end',
     },
