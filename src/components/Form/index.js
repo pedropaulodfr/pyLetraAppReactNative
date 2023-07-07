@@ -34,6 +34,7 @@ export default function Form(props) {
                 setLyric(response.data);
                 setLyricModal(true);
                 getImageArtist(response.data.art.id);
+                props.statusPesquisa(true)
             })
             .catch((error) => {
                 setLyricModal(false);
@@ -161,7 +162,7 @@ export default function Form(props) {
                     {/* Botão de fechar o modal */}
                     <Pressable 
                         style={{flex: .05, justifyContent: 'center'}} 
-                        onPress={() => {setListaVariasMusicas(null)}} // Para fechar o modal
+                        onPress={() => {setListaVariasMusicas(null); props.statusPesquisa(false);}} // Para fechar o modal
                     >
                         <Text style={styles.closeLyric} >               </Text>
                     </Pressable>

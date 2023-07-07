@@ -66,7 +66,6 @@ export default function Ranking() {
                         <Text style={{color: '#006189', fontSize: 12,}}>{artist}</Text>
                     </View>
                 </View>
-
             </Pressable>
         </View>
     );

@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
     },
-    textSelectors: {
+    textSelectors: { /* Não está sendo utilizado */
         color: '#006189',
         backgroundColor: '#ffffff',
         borderRadius: 50,

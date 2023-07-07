@@ -2,6 +2,7 @@ import { StyleSheet, View, ScrollView } from 'react-native';
 import Logo from './src/components/Logo';
 import Form from './src/components/Form';
 import Ranking from './src/components/Ranking';
+import Home from './src/components/Home';
 import React, { useState } from 'react';
 
 
@@ -12,8 +13,11 @@ export default function App() {
   return (
     <ScrollView style={styles.container}>
       <Logo />
-      <Form statusPesquisa={setStatusPesquisa} />
-      {statusPesquisa == false && <Ranking />}
+      {/* <View style={styles.homeContent}>
+        <Form statusPesquisa={setStatusPesquisa} />
+        {statusPesquisa == false && <Ranking />}
+      </View> */}
+      <Home />
     </ScrollView>
   );
 }
