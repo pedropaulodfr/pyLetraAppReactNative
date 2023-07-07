@@ -7,9 +7,7 @@ import IconRead from 'react-native-vector-icons/Ionicons';
 import IconHexagon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
-
-
-export default function Form() {
+export default function Home() {
     const[music, setMusic] = useState(null)
     const[artist, setArtist] = useState(null)
     const[imageArtistUrl, setImageArtistUrl] = useState('https://www.protec.com.br/wp-content/uploads/2022/06/imagem-indisponivel-para-produtos-sem-imagem.jpg')
