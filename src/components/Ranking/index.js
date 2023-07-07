@@ -5,12 +5,18 @@ import axios from 'axios';
 import IconHexagon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
-
 export default function Ranking() {
 
     const[listaRankingMusicas, setListaRankingMusicas] = useState(null);
     const[listaRankingArtistas, setListaRankingArtistas] = useState(null);
     const[seletor, setSeletor] = useState('musicas');
+
+    /* State para setar as cores padrão dos seletores */
+    const[colorMusics, setColorMusics] = useState('#013a52');
+    const[backgroundColorMusics, setBackgroundColorMusics] = useState('#F2D55A');
+    const[colorArtists, setColorArtists] = useState('#006189');
+    const[backgroundColorArtists, setBackgroundColorArtists] = useState('#ffffff');
+
 
     const getMusics = () => {
         axios.get(`https://api.vagalume.com.br/rank.php?type=mus&period=month&periodVal=202307&scope=translations&limit=5&apikey={9790636438dcf6fe0cb11ded844d9786}`)
@@ -23,6 +29,7 @@ export default function Ranking() {
         })
     }
 
+
     const getArtists = () => {
         axios.get(`https://api.vagalume.com.br/rank.php?apikey=9790636438dcf6fe0cb11ded844d9786&type=art&periodVal=202307&scope=internacional&limit=5`)
         .then((response) => {
@@ -33,6 +40,7 @@ export default function Ranking() {
             console.log("Erro ao procurar o ranking de artistas:", error);
         })
     }
+
 
     useEffect(() => {
         getMusics();
@@ -81,7 +89,6 @@ export default function Ranking() {
                         <Text style={{color: '#006189', fontSize: 12,}}>{`${views} views`}</Text>
                     </View>
                 </View>
-
             </Pressable>
         </View>
     );
@@ -92,14 +99,43 @@ export default function Ranking() {
             <View style={styles.rankingHeader}>
                 <Text style={styles.textTitleHeader}>TOP DO MÊS</Text>
                 <View style={styles.selectors}>
-                    <TouchableOpacity onPress={() => {setSeletor('musicas')}}>
-                        <Text style={styles.textSelectors}>Músicas</Text>
+                    <TouchableOpacity 
+                        onPress={() => 
+                        {
+                            /* Alterar o valor do seletor para músicas */
+                            /* Setar as cores do seletor músicas */
+                            setSeletor('musicas'); setColorMusics('#013a52'); setBackgroundColorMusics('#F2D55A'); setColorArtists('#006189'); setBackgroundColorArtists('#ffffff')}
+                        }>
+                        <Text style={{
+                            color: colorMusics,
+                            backgroundColor: backgroundColorMusics,
+                            borderRadius: 50,
+                            width: 60,
+                            height: 25,
+                            textAlign: 'center',
+                            textAlignVertical: 'center',
+                        }}>Músicas</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{marginLeft: 10}} onPress={() => {setSeletor('artistas')}}>
-                        <Text style={styles.textSelectors}>Artistas</Text>
+                    <TouchableOpacity style={{marginLeft: 10}} 
+                        onPress={() => 
+                        {
+                            /* Alterar o valor do seletor para artistas */
+                            /* Setar as cores do seletor artistas */
+                            setSeletor('artistas'); setColorArtists('#013a52'); setBackgroundColorArtists('#F2D55A'); setColorMusics('#006189'); setBackgroundColorMusics('#ffffff')} 
+                        }>
+                        <Text style={{
+                            color: colorArtists,
+                            backgroundColor: backgroundColorArtists,
+                            borderRadius: 50,
+                            width: 60,
+                            height: 25,
+                            textAlign: 'center',
+                            textAlignVertical: 'center',
+                        }} >Artistas</Text>
                     </TouchableOpacity>
                 </View>
             </View>
+
 
             <View style={styles.topMensal} >
                 {seletor === 'musicas' &&
@@ -113,17 +149,16 @@ export default function Ranking() {
 
                 }
 
-            {seletor === 'artistas' &&
-                
-                <FlatList 
-                    data={listaRankingArtistas}
-                    renderItem={({item, index}) => <ItemArtistas views={item.views} artist={item.name} image={item.pic_medium} index={index} />}
-                    keyExtractor={item => item.id}
-                    contentContainerStyle={{ paddingBottom: 100 }}
-                />
+                {seletor === 'artistas' &&
+                    
+                    <FlatList 
+                        data={listaRankingArtistas}
+                        renderItem={({item, index}) => <ItemArtistas views={item.views} artist={item.name} image={item.pic_medium} index={index} />}
+                        keyExtractor={item => item.id}
+                        contentContainerStyle={{ paddingBottom: 100 }}
+                    />
 
-            }
-                
+                }
             </View>
         </View>
     )
