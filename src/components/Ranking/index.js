@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView, FlatList, Pressable } from "react-native"
+import { View, Text, TouchableOpacity, Image, ScrollView, FlatList, Pressable, VirtualizedList } from "react-native"
 import styles from './style'
 import axios from 'axios';
 import IconHexagon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -139,22 +139,58 @@ export default function Ranking() {
             <View style={styles.topMensal} >
                 {seletor === 'musicas' &&
                 
-                    <FlatList 
+                    /* <FlatList 
                         data={listaRankingMusicas}
                         renderItem={({item, index}) => <ItemMusicas music={item.name} artist={item.art.name} image={item.art.pic_medium} index={index} />}
                         keyExtractor={item => item.id}
                         contentContainerStyle={{ paddingBottom: 100 }}
+                    />  */
+
+                
+                    
+                    <VirtualizedList
+                        data={listaRankingMusicas}
+                        renderItem={({ item, index }) => (
+                            <ItemMusicas
+                                music={item.name}
+                                artist={item.art.name}
+                                image={item.art.pic_medium}
+                                index={index}
+                            />
+                        )}
+                        keyExtractor={(item) => item.id}
+                        contentContainerStyle={{ paddingBottom: 100 }}
+                        getItemCount={(data) => data.length}
+                        getItem={(data, index) => data[index]}
                     />
+
+                
 
                 }
 
                 {seletor === 'artistas' &&
                     
-                    <FlatList 
+                    /* <FlatList 
                         data={listaRankingArtistas}
                         renderItem={({item, index}) => <ItemArtistas views={item.views} artist={item.name} image={item.pic_medium} index={index} />}
                         keyExtractor={item => item.id}
                         contentContainerStyle={{ paddingBottom: 100 }}
+                    /> */
+
+                    <VirtualizedList
+                        data={listaRankingArtistas}
+                        renderItem={({ item, index }) => (
+                            <ItemArtistas
+                            views={item.views}
+                                artist={item.name}
+                                image={item.pic_medium}
+                                index={index}
+                            />
+                        )}
+                        keyExtractor={(item) => item.id}
+                        contentContainerStyle={{ paddingBottom: 100 }}
+                        getItemCount={(data) => data.length}
+                        getItem={(data, index) => data[index]}
                     />
 
                 }

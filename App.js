@@ -11,14 +11,14 @@ export default function App() {
   const[statusPesquisa, setStatusPesquisa] = useState(false)
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <Logo />
       {/* <View style={styles.homeContent}>
         <Form statusPesquisa={setStatusPesquisa} />
         {statusPesquisa == false && <Ranking />}
       </View> */}
       <Home />
-    </ScrollView>
+    </View>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, Keyboard, Pressable, FlatList } from "react-native"
+import { View, Text, TextInput, TouchableOpacity, Alert, Keyboard, Pressable, FlatList, VirtualizedList } from "react-native"
 import styles from './style'
 import axios from 'axios';
 import LetraMusica from '../LetraMusica';
@@ -171,11 +171,19 @@ export default function Form(props) {
                         <View style={{top: 10, left: 30, width: '100%', zIndex: 30}}>
                             <Text style={styles.listaVariasMusicasLabel}>Letras Encontradas</Text>
                         </View>
-                        <FlatList 
+                    
+                        <VirtualizedList
                             style={styles.listaVariasMusicas}
                             data={listaVariasMusicas}
-                            renderItem={({item}) => <Item title={item.title} band={item.band}/>}
-                            keyExtractor={item => item.id}
+                            renderItem={({ item}) => (
+                                <Item
+                                    title={item.title}
+                                    band={item.band}
+                                />
+                            )}
+                            keyExtractor={(item) => item.id}
+                            getItemCount={(data) => data.length}
+                            getItem={(data, index) => data[index]}
                         />
                     </View>
 
