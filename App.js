@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, StatusBar } from 'react-native';
 import React, { useState } from 'react';
 import Logo from './src/components/Logo';
 import Form from './src/components/Form';
@@ -8,11 +8,14 @@ import Home from './src/components/Home';
 
 export default function App() {
 
+  
   return (
-    <View style={styles.container}>
+    <>
       <Logo />
-      <Home />
-    </View>
+      <View style={styles.container}>
+        <Home />
+      </View>
+    </>
   );
 }
 
