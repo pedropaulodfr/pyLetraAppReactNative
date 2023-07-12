@@ -1,3 +1,10 @@
+/**  
+ * ESTE COMPONENTE NÃO ESTÁ SENDO UTILIZADO
+ * O CÓDIGO DESTE COMPONENTE FOI UNIFICADO COM O CÓDIGO DO COMPONENTE FORM E UNIFICADO NO COMPONENTE HOME
+ * CÓDIGO UTILIZADO SOMENTE PARA CONSULTAS
+*/
+
+
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, ScrollView, FlatList, Pressable, VirtualizedList } from "react-native"
 import styles from './style'
@@ -47,7 +54,7 @@ export default function Ranking() {
         getArtists();
     }, [])
 
-
+    /* Renderizar as Músicas do TOP DO MÊS */
     const ItemMusicas = ({index, music, artist, image}) => (
         <View>
             <Pressable 
@@ -70,6 +77,7 @@ export default function Ranking() {
         </View>
     );
 
+    /* Renderizar os Artistas do TOP DO MÊS */
     const ItemArtistas = ({index, views, artist, image}) => (
         <View>
             <Pressable 
@@ -96,7 +104,9 @@ export default function Ranking() {
     return(
         <View style={styles.rankingContent} >
             <View style={styles.rankingHeader}>
+                {/* TOP MENSAL */}
                 <Text style={styles.textTitleHeader}>TOP DO MÊS</Text>
+                {/* SELETORES */}
                 <View style={styles.selectors}>
                     <TouchableOpacity 
                         onPress={() => 
@@ -146,8 +156,6 @@ export default function Ranking() {
                         contentContainerStyle={{ paddingBottom: 100 }}
                     />  */
 
-                
-                    
                     <VirtualizedList
                         data={listaRankingMusicas}
                         renderItem={({ item, index }) => (

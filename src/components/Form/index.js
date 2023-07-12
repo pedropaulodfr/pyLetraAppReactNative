@@ -1,3 +1,10 @@
+/**  
+ * ESTE COMPONENTE NÃO ESTÁ SENDO UTILIZADO
+ * O CÓDIGO DESTE COMPONENTE FOI UNIFICADO COM O CÓDIGO DO COMPONENTE RANKING E UNIFICADO NO COMPONENTE HOME
+ * CÓDIGO UTILIZADO SOMENTE PARA CONSULTAS
+*/
+
+
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, Keyboard, Pressable, FlatList, VirtualizedList } from "react-native"
 import styles from './style'
@@ -37,7 +44,6 @@ export default function Form(props) {
                 props.statusPesquisa(true)
             })
             .catch((error) => {
-                setLyricModal(false);
                 console.log("Erro ao buscar a letra:", error);
             })
 
@@ -79,7 +85,6 @@ export default function Form(props) {
                         getImageArtist(response.data.art.id);
                     })
                     .catch((error) => {
-                        setLyricModal(false);
                         console.log("Erro ao buscar a letra:", error);
                     })
 

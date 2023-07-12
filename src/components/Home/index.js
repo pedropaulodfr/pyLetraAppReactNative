@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity,Image, ScrollView, Alert, Keyboard, Pressable, FlatList } from "react-native"
+import { View, Text, TextInput, TouchableOpacity,Image, ScrollView, Alert, Keyboard, Pressable, FlatList, VirtualizedList } from "react-native"
 import styles from './style'
 import axios from 'axios';
 import LetraMusica from '../LetraMusica';
@@ -31,7 +31,6 @@ export default function Home() {
         axios.get(`https://api.vagalume.com.br/rank.php?type=mus&period=month&periodVal=202307&scope=translations&limit=5&apikey={9790636438dcf6fe0cb11ded844d9786}`)
         .then((response) => {
             setListaRankingMusicas(response.data.mus.month.translations);
-            console.log(response.data.mus.month.translations);
         })
         .catch((error) => {
             console.log("Erro ao procurar o ranking de músicas:", error);
@@ -42,7 +41,6 @@ export default function Home() {
         axios.get(`https://api.vagalume.com.br/rank.php?apikey=9790636438dcf6fe0cb11ded844d9786&type=art&periodVal=202307&scope=internacional&limit=5`)
         .then((response) => {
             setListaRankingArtistas(response.data.art.month.internacional);
-            console.log(response.data.art.month.internacional);
         })
         .catch((error) => {
             console.log("Erro ao procurar o ranking de artistas:", error);
@@ -55,28 +53,40 @@ export default function Home() {
     }, [])
 
 
+    /* Renderizar as Músicas do TOP DO MÊS */
     const ItemMusicas = ({index, music, artist, image}) => (
         <View>
             <Pressable 
                 onPress={() => {}}
             >
-                <View style={styles.topMusicas}>
-                    <Text style={styles.posicaoRankingText} >{index + 1}</Text>
-                    <IconHexagon
-                        name="hexagon" 
-                        size={30}
-                        style={styles.posicaoRanking}
-                    />
-                    <Image style={styles.fotoArtista} source={{uri: image}} />
-                    <View style={styles.infoMusicArtist}>
-                        <Text style={{color: '#006189', fontSize: 16, fontWeight: 'bold'}}>{music}</Text>
-                        <Text style={{color: '#006189', fontSize: 12,}}>{artist}</Text>
+                {/* Pessquisar música quando clicar em cima dela */}
+                <TouchableOpacity onPress={() => {
+                        axios.get(`https://api.vagalume.com.br/search.php?art=${artist}&mus=${music}&apikey={9790636438dcf6fe0cb11ded844d9786}`)
+                        .then((response) => {
+                            setLyric(response.data);
+                            setLyricModal(true);
+                            getImageArtist(response.data.art.id);
+                        })
+                }}>
+                    <View style={styles.topMusicas}>
+                        <Text style={styles.posicaoRankingText} >{index + 1}</Text>
+                        <IconHexagon
+                            name="hexagon" 
+                            size={30}
+                            style={styles.posicaoRanking}
+                        />
+                        <Image style={styles.fotoArtista} source={{uri: image}} />
+                        <View style={styles.infoMusicArtist}>
+                            <Text style={{color: '#006189', fontSize: 16, fontWeight: 'bold'}}>{music}</Text>
+                            <Text style={{color: '#006189', fontSize: 12,}}>{artist}</Text>
+                        </View>
                     </View>
-                </View>
+                </TouchableOpacity>
             </Pressable>
         </View>
     )
 
+     /* Renderizar os Artistas do TOP DO MÊS */
     const ItemArtistas = ({index, views, artist, image}) => (
         <View>
             <Pressable 
@@ -118,10 +128,9 @@ export default function Home() {
                 setLyric(response.data);
                 setLyricModal(true);
                 getImageArtist(response.data.art.id);
-                props.statusPesquisa(true)
+                statusPesquisa(true)
             })
             .catch((error) => {
-                setLyricModal(false);
                 console.log("Erro ao buscar a letra:", error);
             })
 
@@ -163,7 +172,6 @@ export default function Home() {
                         getImageArtist(response.data.art.id);
                     })
                     .catch((error) => {
-                        setLyricModal(false);
                         console.log("Erro ao buscar a letra:", error);
                     })
 
@@ -209,11 +217,15 @@ export default function Home() {
 
             </View>
 
-            {/* COMPONENTE RANKING */}
+            {/** 
+             * COMPONENTE RANKING 
+             **/}
 
             <View style={styles.rankingContent} >
             <View style={styles.rankingHeader}>
+                {/* TOP MENSAL */}
                 <Text style={styles.textTitleHeader}>TOP DO MÊS</Text>
+                {/* SELETORES */}
                 <View style={styles.selectors}>
                     <TouchableOpacity 
                         onPress={() => 
@@ -272,7 +284,7 @@ export default function Home() {
                         renderItem={({item, index}) => <ItemArtistas views={item.views} artist={item.name} image={item.pic_medium} index={index} />}
                         keyExtractor={item => item.id}
                         contentContainerStyle={{ paddingBottom: 100 }}
-                    />
+                    /> 
 
                 }
             </View>
